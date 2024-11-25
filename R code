@@ -1,0 +1,44 @@
+# 패키지 설치 및 로드
+install.packages(c("ggplot2", "dplyr", "tidyr"))
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+
+# 가상 데이터 생성
+game_industry_data <- data.frame(
+  category = c("PC", "Mobile", "Console", "Others"),
+  revenue = c(7.2, 12.5, 3.8, 0.5), # 단위: 조 원
+  growth_rate = c(3.5, 8.2, 2.1, -1.0) # 단위: %
+)
+
+user_age_data <- data.frame(
+  age_group = c("10-19", "20-29", "30-39", "40-49", "50+"),
+  percentage = c(15, 35, 30, 15, 5) # 사용자 분포
+)
+# 플랫폼별 매출 파이 차트
+ggplot(game_industry_data, aes(x = "", y = revenue, fill = category)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar("y", start = 0) +
+  labs(
+    title = "2024 한국 게임산업 플랫폼별 매출 비중",
+    fill = "Platform"
+  ) +
+  theme_void()
+# 플랫폼별 성장률 막대 그래프
+ggplot(game_industry_data, aes(x = category, y = growth_rate, fill = category)) +
+  geom_bar(stat = "identity") +
+  labs(
+    title = "2024 한국 게임산업 플랫폼별 성장률",
+    x = "Platform",
+    y = "Growth Rate (%)"
+  ) +
+  theme_minimal()
+# 사용자 연령대 분포 파이 차트
+ggplot(user_age_data, aes(x = "", y = percentage, fill = age_group)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar("y", start = 0) +
+  labs(
+    title = "2024 한국 게임 사용자 연령대 분포",
+    fill = "Age Group"
+  ) +
+  theme_void()
